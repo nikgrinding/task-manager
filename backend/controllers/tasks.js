@@ -1,5 +1,6 @@
 const Task = require("../models/Task");
 const asyncWrapper = require("../utils/asyncWrapper");
+const throwIfResourceNotFound = require("../utils/throwIfResourceNotFound");
 
 const getTasks = asyncWrapper(async (req, res) => {
     const tasks = await Task.find({});
@@ -13,31 +14,19 @@ const createTask = asyncWrapper(async (req, res) => {
 
 const getTask = asyncWrapper(async (req, res) => {
     const task = await Task.findOne({ _id: req.params.id });
-    if (!task) {
-        const err = new Error("Task does not exist");
-        err.statusCode = 404;
-        throw err;
-    }
+    throwIfResourceNotFound(task, "Task does not exist");
     return res.status(200).send({ task });
 });
 
 const updateTask = asyncWrapper(async (req, res) => {
     const task = await Task.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true, runValidators: true });
-    if (!task) {
-        const err = new Error("Task does not exist");
-        err.statusCode = 404;
-        throw err;
-    }
+    throwIfResourceNotFound(task, "Task does not exist");
     return res.status(200).send({ task });
 });
 
 const deleteTask = asyncWrapper(async (req, res) => {
     const task = await Task.findOneAndDelete({ _id: req.params.id });
-    if (!task) {
-        const err = new Error("Task does not exist");
-        err.statusCode = 404;
-        throw err;
-    }
+    throwIfResourceNotFound(task, "Task does not exist");
     return res.status(200).send({ task });
 });
 
