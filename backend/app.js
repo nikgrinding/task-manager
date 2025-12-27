@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const connectDB = require("./db/connect");
 const router = require("./routes/tasks");
 
@@ -9,6 +10,7 @@ app.get("/", (req, res) => {
     return res.status(200).send("Task Manager API is running.");
 });
 
+app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:5173" }));
 app.use(express.json());
 app.use("/api/v1/tasks", router);
 
