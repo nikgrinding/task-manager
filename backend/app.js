@@ -1,12 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const connectDB = require("./db/connect");
+const router = require("./routes/tasks");
 
 const app = express();
 
 app.get("/", (req, res) => {
     return res.status(200).send("Task Manager API is running.");
 });
+
+app.use(express.json());
+app.use("/api/v1/tasks", router);
 
 const startApplication = async () => {
     const connectionString = process.env.MONGO_URI;
