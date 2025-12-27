@@ -1,9 +1,9 @@
-const customError = require("./customError");
+const CustomError = require("./CustomError");
 
-class custom404Error extends customError {
+class Custom404Error extends CustomError {
     constructor(message) {
         super(404, message);
     }
 }
 
-module.exports = custom404Error;
+module.exports = Custom404Error;

@@ -1,8 +1,8 @@
-const custom404Error = require("../errors/custom404Error");
+const Custom404Error = require("../errors/Custom404Error");
 
 const throwIfResourceNotFound = (resource, message) => {
     if (!resource) {
-        throw new custom404Error(message);
+        throw new Custom404Error(message);
     }
 };
 
