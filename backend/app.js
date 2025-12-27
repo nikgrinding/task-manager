@@ -3,6 +3,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./db/connect");
 const router = require("./routes/tasks");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.get("/", (req, res) => {
 app.use(cors({ origin: process.env.CORS_ORIGIN || "http://localhost:5173" }));
 app.use(express.json());
 app.use("/api/v1/tasks", router);
+app.use((req, res) => res.status(404).json({ error: "Route not Found" }));
+app.use(errorHandler);
 
 const startApplication = async () => {
     const connectionString = process.env.MONGO_URI;
