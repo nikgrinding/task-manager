@@ -1,4 +1,5 @@
 import Button from "../ui/Button";
+import { Link } from "react-router-dom";
 
 export default function TaskItem({ task, handleToggleTaskStatus, handleDeleteTask }) {
     return (
@@ -12,7 +13,9 @@ export default function TaskItem({ task, handleToggleTaskStatus, handleDeleteTas
                 }}
             />
             <span className={`flex-1 ${task.completed ? "line-through text-gray-500" : ""}`}>{task.name}</span>
-            <Button variant="secondary">Edit</Button>
+            <Link to={`/edit/${task._id}`}>
+                <Button variant="secondary">Edit</Button>
+            </Link>
             <Button
                 variant="danger"
                 onClick={() => {
