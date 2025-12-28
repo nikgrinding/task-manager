@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import PageContainer from "../components/layout/PageContainer";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import LoadingMessage from "../components/ui/LoadingMessage";
 import TaskList from "../components/tasks/TaskList";
 import TaskForm from "../components/tasks/TaskForm";
+import { getAllTasks, createTask, updateTask, deleteTask } from "../api/tasks";
 
 export default function HomePage() {
     const [tasks, setTasks] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1/tasks";
-
     useEffect(() => {
         const fetchTasks = async () => {
             try {
                 setLoading(true);
-                const { tasks } = (await axios.get(API_URL)).data;
+                const { tasks } = await getAllTasks();
                 setTasks(tasks);
                 setError("");
             } catch (error) {
@@ -27,7 +25,7 @@ export default function HomePage() {
             }
         };
         fetchTasks();
-    }, [API_URL]);
+    }, []);
 
     if (loading) {
         return (
@@ -39,7 +37,7 @@ export default function HomePage() {
 
     const handleCreateTask = async (taskName) => {
         try {
-            const { task } = (await axios.post(API_URL, { name: taskName })).data;
+            const { task } = await createTask(taskName);
             setTasks([...tasks, task]);
             setError("");
         } catch (error) {
@@ -58,7 +56,7 @@ export default function HomePage() {
             })
         );
         try {
-            await axios.patch(`${API_URL}/${id}`, { completed: !currentStatus });
+            await updateTask(id, { completed: !currentStatus });
             setError("");
         } catch (error) {
             setTasks(originalTasks);
@@ -74,7 +72,7 @@ export default function HomePage() {
             })
         );
         try {
-            await axios.delete(`${API_URL}/${id}`);
+            await deleteTask(id);
             setError("");
         } catch (error) {
             setTasks(originalTasks);

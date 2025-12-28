@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 import PageContainer from "../components/layout/PageContainer";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 import ErrorMessage from "../components/ui/ErrorMessage";
 import LoadingMessage from "../components/ui/LoadingMessage";
+import { getTask, updateTask } from "../api/tasks";
 
 export default function EditPage() {
     const { id } = useParams();
@@ -17,13 +17,11 @@ export default function EditPage() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000/api/v1/tasks";
-
     useEffect(() => {
         const fetchTask = async () => {
             try {
                 setLoading(true);
-                const { task } = (await axios.get(`${API_URL}/${id}`)).data;
+                const { task } = await getTask(id);
                 setTask(task);
                 setName(task.name);
                 setCompleted(task.completed);
@@ -35,7 +33,7 @@ export default function EditPage() {
             }
         };
         fetchTask();
-    }, [API_URL, id]);
+    }, [id]);
 
     useEffect(() => {
         const handleEscape = (e) => {
@@ -50,7 +48,7 @@ export default function EditPage() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.patch(`${API_URL}/${id}`, { name, completed });
+            await updateTask(id, { name, completed });
             navigate("/");
         } catch (err) {
             setError(err.response?.data?.message || "Failed to update task");
