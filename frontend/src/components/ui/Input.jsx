@@ -1,4 +1,4 @@
-export default function Input({ value, onChange, placeholder, maxLength }) {
+export default function Input({ value, onChange, placeholder, maxLength = 50 }) {
     return (
         <div className="w-full">
             <input
