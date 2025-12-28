@@ -86,6 +86,14 @@ export default function EditPage() {
                     <p className="text-gray-500 font-mono text-sm">{task._id}</p>
                 </div>
                 <div>
+                    <label className="block text-sm font-medium mb-2">Created At</label>
+                    <p className="text-gray-500 text-sm">{new Date(task.createdAt).toLocaleString()}</p>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium mb-2">Last Updated</label>
+                    <p className="text-gray-500 text-sm">{new Date(task.updatedAt).toLocaleString()}</p>
+                </div>
+                <div>
                     <label className="block text-sm font-medium mb-2">Task Name</label>
                     <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter task name..." />
                 </div>

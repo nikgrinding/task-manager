@@ -13,6 +13,7 @@ export default function TaskItem({ task, handleToggleTaskStatus, handleDeleteTas
                 }}
             />
             <span className={`flex-1 ${task.completed ? "line-through text-gray-500" : ""}`}>{task.name}</span>
+            <div className="text-xs text-gray-400 mt-1">Created: {new Date(task.createdAt).toLocaleString()}</div>
             <Link to={`/edit/${task._id}`}>
                 <Button variant="secondary">Edit</Button>
             </Link>
