@@ -82,7 +82,7 @@ export default function HomePage() {
 
     return (
         <PageContainer>
-            <h1 className="text-4xl font-bold mb-8 text-center">Task Manager</h1>
+            <h1 className="text-4xl font-bold mb-8 text-center text-gray-800">Task Manager</h1>
             <ErrorMessage error={error} />
             <TaskForm handleCreateTask={handleCreateTask} />
             <TaskList

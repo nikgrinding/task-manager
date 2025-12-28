@@ -76,23 +76,23 @@ export default function EditPage() {
 
     return (
         <PageContainer>
-            <h1 className="text-4xl font-bold mb-8">Edit Task</h1>
+            <h1 className="text-4xl font-bold mb-8 text-gray-800">Edit Task</h1>
             <ErrorMessage error={error} />
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-sm p-6 space-y-6 border border-gray-100">
                 <div>
-                    <label className="block text-sm font-medium mb-2">Task ID</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Task ID</label>
                     <p className="text-gray-500 font-mono text-sm">{task._id}</p>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-2">Created At</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Created At</label>
                     <p className="text-gray-500 text-sm">{new Date(task.createdAt).toLocaleString()}</p>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-2">Last Updated</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Last Updated</label>
                     <p className="text-gray-500 text-sm">{new Date(task.updatedAt).toLocaleString()}</p>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium mb-2">Task Name</label>
+                    <label className="block text-sm font-medium mb-2 text-gray-700">Task Name</label>
                     <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter task name..." />
                 </div>
                 <div className="flex items-center gap-2">
@@ -101,13 +101,13 @@ export default function EditPage() {
                         id="completed"
                         checked={completed}
                         onChange={(e) => setCompleted(e.target.checked)}
-                        className="w-5 h-5 cursor-pointer"
+                        className="w-5 h-5 cursor-pointer accent-blue-600"
                     />
-                    <label htmlFor="completed" className="cursor-pointer">
+                    <label htmlFor="completed" className="cursor-pointer text-gray-700">
                         Mark as completed
                     </label>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-4 pt-2">
                     <Button type="submit">Save Changes</Button>
                     <Button variant="secondary" type="button" onClick={() => navigate("/")}>
                         Cancel (or press Esc)

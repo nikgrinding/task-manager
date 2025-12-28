@@ -2,5 +2,9 @@ export default function ErrorMessage({ error }) {
     if (!error) {
         return null;
     }
-    return <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">{error}</div>;
+    return (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4 shadow-sm">
+            <p className="text-sm font-medium">{error}</p>
+        </div>
+    );
 }
